@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Navbar from "./Components/Nav";
+import ProductList from "./Components/ProductList";
+import Cart from "./Components/Cart";
+import Login from "./Components/Login";
+import Register from "./Components/Register";
+import image from "./Asserts/ecommerse.png";
 
 function App() {
+  const [page, setPage] = useState("Register");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar setPage={setPage} />
+      {page === "" && <img src={image} alt="my pic" width="100%" />}
+      {page === "login" && <Login setPage={setPage} />}
+      {page === "products" && <ProductList setPage={setPage} />}
+      {page === "cart" && <Cart setPage={setPage} />}
+      {page === "Register" && <Register setPage={setPage} />}
+    </>
   );
 }
 
