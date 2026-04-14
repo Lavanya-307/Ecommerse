@@ -6,15 +6,14 @@ import {
   Button,
   Typography,
   Box,
-  Grid,
   Card,
-  CardMedia,
-  CardContent
 } from "@mui/material";
+import { useNavigate } from "react-router-dom"; // ✅ added
 import image from "../Asserts/ecommerse.png";
 
-const Register = ({ setPage }) => {
+const Register = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // ✅ added
 
   const [formData, setFormData] = useState({
     name: "",
@@ -35,7 +34,8 @@ const Register = ({ setPage }) => {
     dispatch(registerUser(formData));
 
     setFormData({ name: "", email: "", password: "" });
-    setPage("login");
+
+    navigate("/login"); // ✅ instead of setPage
   };
 
   return (
@@ -49,16 +49,24 @@ const Register = ({ setPage }) => {
         backgroundColor: "#f5f5f5",
       }}
     >
-      <Card sx={{ display: "flex", flexDirection: "row", maxWidth: 1200, width: "100%", boxShadow: 4, borderRadius: 2 }}>
+      <Card
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          maxWidth: 1200,
+          width: "100%",
+          boxShadow: 4,
+          borderRadius: 2,
+        }}
+      >
         {/* LEFT IMAGE */}
         <Box
           sx={{
             flex: 1,
-            display: "flex",
+            display: { xs: "none", md: "flex" }, // ✅ responsive
             alignItems: "center",
             justifyContent: "center",
             overflow: "hidden",
-            borderRadius: "2px 0 0 2px",
           }}
         >
           <img
@@ -82,72 +90,71 @@ const Register = ({ setPage }) => {
             justifyContent: "center",
             padding: 4,
             backgroundColor: "#ffffff",
-            borderRadius: "0 2px 2px 0",
           }}
         >
           <Box sx={{ width: "100%", maxWidth: 350 }}>
-              <Typography
-                variant="h5"
-                sx={{
-                  mb: 3,
-                  color: "blue",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                Register Form
-              </Typography>
+            <Typography
+              variant="h5"
+              sx={{
+                mb: 3,
+                color: "blue",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              Register Form
+            </Typography>
 
-              <form onSubmit={handleSubmit}>
-                <TextField
-                  fullWidth
-                  label="Name"
-                  name="name"
-                  margin="normal"
-                  value={formData.name}
-                  onChange={handleChange}
-                />
+            <form onSubmit={handleSubmit}>
+              <TextField
+                fullWidth
+                label="Name"
+                name="name"
+                margin="normal"
+                value={formData.name}
+                onChange={handleChange}
+              />
 
-                <TextField
-                  fullWidth
-                  label="Email"
-                  name="email"
-                  type="email"
-                  margin="normal"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
+              <TextField
+                fullWidth
+                label="Email"
+                name="email"
+                type="email"
+                margin="normal"
+                value={formData.email}
+                onChange={handleChange}
+              />
 
-                <TextField
-                  fullWidth
-                  label="Password"
-                  name="password"
-                  type="password"
-                  margin="normal"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-
-                <Button
-                  variant="contained"
-                  fullWidth
-                  sx={{ mt: 3 }}
-                  type="submit"
-                >
-                  Register
-                </Button>
-              </form>
+              <TextField
+                fullWidth
+                label="Password"
+                name="password"
+                type="password"
+                margin="normal"
+                value={formData.password}
+                onChange={handleChange}
+              />
 
               <Button
-                variant="text"
+                variant="contained"
                 fullWidth
-                sx={{ mt: 2 }}
-                onClick={() => setPage("login")}
+                sx={{ mt: 3 }}
+                type="submit"
               >
-                Already have an account? Login
+                Register
               </Button>
-            </Box>
+            </form>
+
+            <Button
+              variant="text"
+              fullWidth
+              sx={{ mt: 2 }}
+              onClick={() => navigate("/login")} // ✅ changed
+            >
+              Already have an account? Login
+            </Button>
           </Box>
+        </Box>
       </Card>
     </Box>
   );

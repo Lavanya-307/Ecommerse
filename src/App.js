@@ -1,23 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Navbar from "./Components/Nav";
 import ProductList from "./Components/ProductList";
 import Cart from "./Components/Cart";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
-import image from "./Asserts/ecommerse.png";
+import ProductDetails from "./Features/ProductDetails"; // 
+
 
 function App() {
-  const [page, setPage] = useState("Register");
-
   return (
-    <>
-      <Navbar setPage={setPage} />
-      {page === "" && <img src={image} alt="my pic" width="100%" />}
-      {page === "login" && <Login setPage={setPage} />}
-      {page === "products" && <ProductList setPage={setPage} />}
-      {page === "cart" && <Cart setPage={setPage} />}
-      {page === "Register" && <Register setPage={setPage} />}
-    </>
+    <BrowserRouter>
+      <Navbar />
+
+      <Routes>
+        
+        <Route path="/" element={<Register />} />
+
+      
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        
+        <Route path="/products" element={<ProductList />} />
+        <Route path="/cart" element={<Cart />} />
+
+        <Route path="/product/:id" element={<ProductDetails />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

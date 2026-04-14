@@ -8,10 +8,12 @@ import {
   Box,
   Card
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import image from "../Asserts/Login.jpg";
 
-const Login = ({ setPage }) => {
+const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +38,7 @@ const Login = ({ setPage }) => {
 
     dispatch(login());
     setError("");
-    setPage("products");
+    navigate("/products");
   };
 
   return (
@@ -125,7 +127,7 @@ const Login = ({ setPage }) => {
             variant="text"
             fullWidth
             sx={{ mt: 2 }}
-            onClick={() => setPage("Register")}
+            onClick={() => navigate("/")}
           >
             Don't have an account? Register
           </Button>

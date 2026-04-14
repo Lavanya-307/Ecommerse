@@ -1,17 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
     const res = await axios.get("https://dummyjson.com/products");
     return res.data;
-  }
+  },
 );
-
 const productSlice = createSlice({
   name: "products",
-  initialState: { items: [], status: "idle" },
+  initialState: { items: [], status: "idle", search: "" },
+  reducers: {
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
@@ -23,5 +26,5 @@ const productSlice = createSlice({
       });
   },
 });
-
+export const { setSearch } = productSlice.actions;
 export default productSlice.reducer;

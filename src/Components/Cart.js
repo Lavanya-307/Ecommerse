@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart } from "../Features/CartSlice";
+import { removeFromCart, updateQuantity } from "../Features/CartSlice";
 import {
   Button,
   Typography,
@@ -8,7 +8,9 @@ import {
   CardMedia,
   Grid,
   Box,
+  IconButton,
 } from "@mui/material";
+import { Add, Remove, Delete } from "@mui/icons-material";
 
 const Cart = () => {
   const { items } = useSelector((state) => state.cart);
@@ -35,7 +37,7 @@ const Cart = () => {
 
       <Grid container spacing={2}>
         {items.map((item) => (
-          <Grid size={{xs:12,sm:5,md:3}} key={item.id}>
+          <Grid size={{ xs: 12, sm: 5, md: 3 }} key={item.id}>
             <Card>
               <CardMedia
                 component="img"
@@ -49,18 +51,39 @@ const Cart = () => {
                   {item.description?.slice(0, 100)}{item.description?.length > 100 ? "..." : ""}
                 </Typography>
                 <Typography>Price: Rs. {item.price}</Typography>
-                <Typography>Qty: {item.quantity}</Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, marginTop: 2 }}>
+                  <Typography>Qty:</Typography>
+                  <IconButton
+                    size="small"
+                    onClick={() => dispatch(updateQuantity({ id: item.id, quantity: item.quantity - 1 }))}
+                    sx={{ border: '1px solid #ccc' }}
+                  >
+                    <Remove fontSize="small" />
+                  </IconButton>
+                  <Typography sx={{ minWidth: '30px', textAlign: 'center' }}>
+                    {item.quantity}
+                  </Typography>
+                  <IconButton
+                    size="small"
+                    onClick={() => dispatch(updateQuantity({ id: item.id, quantity: item.quantity + 1 }))}
+                    sx={{ border: '1px solid #ccc' }}
+                  >
+                    <Add fontSize="small" />
+                  </IconButton>
+                </Box>
                 <Typography sx={{ fontWeight: "bold", marginTop: 1 }}>
                   Subtotal: Rs. {item.price * item.quantity}
                 </Typography>
-                <Button
-                  color="error"
-                  variant="contained"
-                  sx={{ marginTop: 2 }}
-                  onClick={() => dispatch(removeFromCart(item.id))}
-                >
-                  Remove
-                </Button>
+                <Box sx={{ display: 'flex', gap: 1, marginTop: 2 }}>
+                  <Button
+                    color="error"
+                    variant="contained"
+                    size="small"
+                    onClick={() => dispatch(removeFromCart(item.id))}
+                    startIcon={<Delete />}
+                  >
+                  </Button>
+                </Box>
               </CardContent>
             </Card>
           </Grid>
