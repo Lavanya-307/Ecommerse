@@ -20,8 +20,11 @@ const ProductList = () => {
   const { status, search } = useSelector((state) => state.products);
   
     useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+    // Only fetch products if they haven't been loaded yet
+    if (status === "idle") {
+      dispatch(fetchProducts());
+    }
+  }, [dispatch, status]);
 
 
   const [page, setPage] = useState(1);
@@ -33,6 +36,15 @@ const ProductList = () => {
     setPage(1);
   }, [search]);
 
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  };
+
   const startIndex = (page - 1) * itemsPerPage;
   const paginatedProducts = filteredProducts.slice(
     startIndex,
@@ -41,6 +53,16 @@ const ProductList = () => {
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
+
+  if (status === "loading") {
+    return (
+      <Box sx={{ textAlign: "center", mt: 10, width: "100%" }}>
+        <Typography variant="h6" color="text.secondary">
+          Loading products...
+        </Typography>
+      </Box>
+    );
+  }
 
   if (filteredProducts.length === 0 && status !== "loading") {
     return (
@@ -137,7 +159,7 @@ const ProductList = () => {
         <Button
           variant="contained"
           disabled={page === 1}
-          onClick={() => setPage(page - 1)}
+          onClick={() => handlePageChange(page - 1)}
         >
           Previous
         </Button>
@@ -149,7 +171,7 @@ const ProductList = () => {
         <Button
           variant="contained"
           disabled={page === totalPages}
-          onClick={() => setPage(page + 1)}
+          onClick={() => handlePageChange(page + 1)}
         >
           Next
         </Button>

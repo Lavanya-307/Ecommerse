@@ -16,7 +16,7 @@ const ProductDetails = () => {
     );
 
     const allProducts = useSelector((state) => state.products.items);
-    const remainingProducts = allProducts.filter((p) => p.id !== Number(id));
+    const remainingProducts = allProducts.filter((p) => p.id !== Number(id) && p.category === product.category);
 
     if (!product) return <Typography>Not available</Typography>;
 
@@ -103,7 +103,7 @@ const ProductDetails = () => {
 
                 {/* Remaining Products - Right Side */}
                 <Box sx={{ flex: 1, padding: 4 }}>
-                    <Typography variant="h5" sx={{ mb: 3 }}>Other Products</Typography>
+                    <Typography variant="h5" sx={{ mb: 3 }}>Other {product.category} Products</Typography>
 
                     <Box
                         sx={{
