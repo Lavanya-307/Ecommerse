@@ -4,7 +4,7 @@ import { Box, Typography,
      Card, CardMedia, CardContent, Table, TableBody,
       TableCell, TableContainer, TableRow, Paper, IconButton, Button } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
-import { addToCart } from "../Features/CartSlice";
+import { addToCart } from "../Features/CartDetails";
 
 const ProductDetails = () => {
     const { id } = useParams();

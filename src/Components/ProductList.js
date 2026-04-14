@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"; 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchProducts } from "../Features/ProductSlice";
-import { addToCart} from "../Features/CartSlice";
+import { fetchProducts } from "../Features/ProductFetch";
+import { addToCart} from "../Features/CartDetails";
 import {
   Card,
   CardContent,

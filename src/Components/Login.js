@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../Features/AuthSlice";
+import { login } from "../Features/Autherisation";
 import {
   TextField,
   Button,

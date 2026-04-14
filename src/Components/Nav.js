@@ -2,8 +2,8 @@ import React from "react";
 import { AppBar, Toolbar, Button, Typography, InputBase, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../Features/AuthSlice";
-import { setSearch } from "../Features/ProductSlice";
+import { logout } from "../Features/Autherisation";
+import { setSearch } from "../Features/ProductFetch";
 
 const Navbar = () => {
   const dispatch = useDispatch();

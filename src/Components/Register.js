@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../Features/UserSlice";
+import { registerUser } from "../Features/UserRegister";
 import {
   TextField,
   Button,

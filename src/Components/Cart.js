@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart, updateQuantity } from "../Features/CartSlice";
+import { removeFromCart, updateQuantity } from "../Features/CartDetails";
 import {
   Button,
   Typography,
